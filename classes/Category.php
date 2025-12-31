@@ -98,12 +98,14 @@ class Category {
     
     // Vérifie si une catégorie a des quiz
     
-    public function hasQuizzes($categoryId) {
-        $sql = "SELECT COUNT(*) as count FROM quiz WHERE categorie_id = ?";
-        $result = $this->db->query($sql, [$categoryId]);
-        $data = $result->fetch();
-        return $data['count'] > 0;
-    }
+    public function countQuizzesByCategory(int $categoryId): int
+{
+    $sql = "SELECT COUNT(*) AS count FROM quiz WHERE categorie_id = ?";
+    $stmt = $this->db->query($sql, [$categoryId]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return (int)$data['count'];
+}
     
     // Récupère toutes les catégories (pour les sélections)
     

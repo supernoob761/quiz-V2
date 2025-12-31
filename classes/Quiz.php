@@ -49,8 +49,20 @@ class Quiz {
     }
     
     // Récupère un quiz par ID
-    
+    public function getquizbycataid($id){
+        $sql = "SELECT q.*, c.nom AS categorie_nom
+FROM quiz q
+LEFT JOIN categories c ON q.categorie_id = c.id
+WHERE q.categorie_id = ?;
+
+";
+$result = $this->db->query($sql, [$id]);
+return $result->fetchAll();
+    }
    
+
+
+
     public function getById($id) {
         $sql = "SELECT q.*, c.nom as categorie_nom
                 FROM quiz q
